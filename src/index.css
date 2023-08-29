@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .tableheader {
+    @apply py-2  border-b border-r text-black dark:border-slate-400 dark:text-gray-400;
+  }
+
+  .tableCell {
+    @apply py-2 border-r border-b dark:border-slate-400 dark:text-gray-200 text-base h-20;
+  }
+
+  .iconButton {
+    @apply btn btn-ghost btn-sm btn-circle items-center flex cursor-pointer tooltip  tooltip-bottom;
+  }
+}
