@@ -11,12 +11,13 @@ import {
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../components/Modal";
+import { setPagination } from "../redux/manageStaff/staffSlice";
 
 const ManageStaff = () => {
   const dispatch = useDispatch();
 
   // selector
-  const { staffs } = useSelector((state) => state.staff);
+  const { staffs, pagination } = useSelector((state) => state.staff);
 
   // states
   const [sidebarOpen, setsidebarOpen] = useState(true);
@@ -25,10 +26,10 @@ const ManageStaff = () => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const [openTableActions, setopenTableActions] = useState();
   const [searchInput, setSearchInput] = useState();
-  const [pagination, setPagination] = useState({
-    take: 25,
-    currentPage: 1,
-  });
+  // const [pagination, setPagination] = useState({
+  //   take: 25,
+  //   currentPage: 1,
+  // });
 
   const payload = {
     inputData: {
@@ -103,6 +104,15 @@ const ManageStaff = () => {
     setaddnewStaffModal(false);
   };
 
+  const handleEditSTaff = () => {
+    dispatch({
+      type: "UPDATE_STAFF",
+      payload: {
+        body: editStaff,
+      },
+    });
+    seteditModalopen(false);
+  };
   console.log(editStaff, "edit staff");
 
   return (
@@ -216,6 +226,49 @@ const ManageStaff = () => {
             seteditModalopen(false);
           }}
           isEditStaff={true}
+          staffEditValue={editStaff?.inputData?.redoq_csd_staff_First_Name}
+          staffEditOnchange={(e) => {
+            setEditStaff({
+              ...editStaff,
+              inputData: {
+                ...editStaff.inputData,
+                redoq_csd_staff_First_Name: e.target.value,
+              },
+            });
+          }}
+          mobileEditValue={editStaff?.inputData?.redoq_csd_staff_Mobile_Number}
+          mobileEditOnCHange={(e) => {
+            setEditStaff({
+              ...editStaff,
+              inputData: {
+                ...editStaff.inputData,
+                redoq_csd_staff_Mobile_Number: e.target.value,
+              },
+            });
+          }}
+          usernameEditValue={editStaff?.inputData?.redoq_csd_staff_Username}
+          usernameEditOnChange={(e) => {
+            setEditStaff({
+              ...editStaff,
+              inputData: {
+                ...editStaff.inputData,
+                redoq_csd_staff_Username: e.target.value,
+              },
+            });
+          }}
+          houseFlatEditValue={
+            editStaff?.inputData?.redoq_csd_staff_Address_Line_1
+          }
+          houseFlatEditOnchange={(e) => {
+            setEditStaff({
+              ...editStaff,
+              inputData: {
+                ...editStaff.inputData,
+                redoq_csd_staff_Address_Line_1: e.target.value,
+              },
+            });
+          }}
+          onClickSave={handleEditSTaff}
         />
       )}
       {deleteModalOpen && (
@@ -279,10 +332,12 @@ const ManageStaff = () => {
                 <div className="join">
                   <button
                     onClick={() => {
-                      setPagination({
-                        currentPage: pagination.currentPage - 1,
-                        take: pagination.take - 25,
-                      });
+                      dispatch(
+                        setPagination({
+                          currentPage: pagination.currentPage - 1,
+                          take: pagination.take - 25,
+                        })
+                      );
                     }}
                     className="join-item btn btn-sm"
                   >
@@ -319,10 +374,12 @@ const ManageStaff = () => {
 
                   <button
                     onClick={() => {
-                      setPagination({
-                        currentPage: pagination.currentPage + 1,
-                        take: pagination.take + 25,
-                      });
+                      dispatch(
+                        setPagination({
+                          currentPage: pagination.currentPage + 1,
+                          take: pagination.take + 25,
+                        })
+                      );
                     }}
                     className="join-item btn btn-sm"
                   >

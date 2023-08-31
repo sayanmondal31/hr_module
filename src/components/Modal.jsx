@@ -140,7 +140,7 @@ function Modal({
           )}
           {isEditStaff && (
             <>
-              <div className="grid grid-cols-2 px-10 py-3 gap-y-2">
+              <div className="grid grid-cols-2 px-10 py-3 gap-y-2 h-[50vh] gap-x-3 overflow-y-auto">
                 <InputField
                   title="Staff Name"
                   onChange={staffEditOnchange}
